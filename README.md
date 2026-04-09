@@ -120,24 +120,142 @@ The next step is to create an update() method which will be responsible for upda
 Below your draw() method, create an empty update() method.
 
 # Step 22
+
 Inside the update() method, call the draw() method to ensure that the player is continually drawn on the screen as the game updates.
 Don't forget to include the this keyword.
 
-
 # Step 23
+
 When the player moves to the right, you will need to adjust its velocity.
 Use the addition assignment operator to add the velocity's x coordinate to the player's x position.
 Don't forget to include the this keyword for the velocity and position.
 
 # Step 24
+
 When the player jumps up, you will need to add the logic for adjusting its velocity.
 Use the addition assignment operator to add the velocity's y coordinate to the player's y position.
 Don't forget to include the this keyword for the velocity and position.
 
 # Step 25
+
 Right now, when the player jumps up, it is possible for it to move past the height of the canvas.
 To fix that, you will need to add a condition to stop the player from falling past the height of the canvas.
 Create an empty if statement that checks if the sum of the player's y position, height, and y velocity is less than or equal to the height of the canvas.
 
 # Step 26
+
 In the if statement, add another if statement to check if the player's y position is less than 0.
+
+# Step 27
+
+Inside the inner if statement, assign 0 to the player's y position.
+
+# Step 28
+
+Below the this.position.y = 0, assign gravity to the velocity's y position.
+
+# Step 29
+
+Below your inner if statement, use the addition assignment operator to add gravity to the y velocity.
+
+# Step 30
+
+Add an else clause that assigns 0 to this.velocity.y.
+
+# Step 31
+
+The final condition you need to add inside the Player class is to ensure that the player stays within the boundaries of the canvas screen and doesn't move too far off to the left.
+Create an if statement, to check if the player's x position is less than the width.
+
+# Step 32
+
+Inside the if statement, assign the width to the player's x position.
+
+# Step 33
+
+For the last condition, you will need to check if the player's x position has exceeded the right edge of the canvas. If it has, you will need to set the player's x position to the maximum value so the player does not accidentally go off screen to the right.
+Inside your update method, create an if statement that checks if this.position.x >= canvas.width - this.width * 2.
+
+# Step 34
+
+Inside your if statement, assign canvas.width - this.width * 2 to this.position.x.
+This will ensure that the player's x position will never exceed the right edge of the canvas.
+
+# Step 35
+
+The next step is to use the new keyword to create a new instance of the Player object and assign it to a new const variable called player.
+
+# Step 36
+
+Now it is time to see your new player drawn on the screen.
+Start by creating an empty arrow function called startGame.
+
+# Step 37
+
+Inside your startGame function, you will need to display the canvas element and hide the startScreen container.
+Use canvas.style.display to change the display value to "block".
+Below that, use startScreen.style.display to change the display value to "none".
+
+# Step 38
+
+To visualize the player on the screen, you need to draw it on the canvas.
+Inside the startGame function, call the .draw() method of your player object.
+
+# Step 39
+
+Now it's time to add the functionality for the start game button.
+Add an addEventListener to the startBtn and pass in a click event and a reference to the startGame function.
+Click on the start game button, and you should see a light blue square on the screen which represents the main player.
+
+# Step 40
+
+Now that you can see the player on the screen, it is time to start adding the functionality for moving the player across the screen.
+Create a new empty arrow function called animate.
+
+# Step 41
+
+The requestAnimationFrame() web API, takes in a callback and is used to update the animation on the screen. The animate function will be responsible for updating the player's position and continually drawing it on the canvas.
+Inside the animate function, call the requestAnimationFrame() API and pass animate as the argument.
+
+# Step 42
+
+As the player moves through the game, you will need to clear the canvas before rendering the next frame of the animation.
+You can use the clearRect() Web API to accomplish this. It takes in an x, y, width, and height arguments.
+Below your requestAnimationFrame, call the clearRect() method on the ctx variable and pass in 0, 0, canvas.width, canvas.height as the arguments.
+
+# Step 43
+
+The next step is to update the player's position as it moves throughout the game.
+Below your ctx.clearRect(), call the update() method on the player.
+
+# Step 44
+
+To manage the player's movement in the game, you will need to monitor when the left and right arrow keys are pressed.
+Create a new const variable called keys and assign it an empty object.
+
+# Step 45
+
+Inside the keys object, add a new key called rightKey and assign it an object with the key-value pair of pressed: false.
+Below the rightKey object, create a leftKey object and assign it an object with the key-value pair of pressed: false.
+
+# Step 46
+
+The next step is to add the logic for increasing or decreasing a player's velocity based on if they move to the left or right of the screen.
+Inside the animate function, create an if statement where the condition checks if the right key was pressed and the player's x position is less than proportionalSize(400).
+You need to use the proportionalSize function here to make sure the player's x position is always proportional to the screen size.
+
+# Step 47
+
+Inside the if statement, assign the number 5 to the player's x velocity.
+
+# Step 48
+
+Add an else if statement where the condition checks if the left key was pressed and the player's x position is greater than proportionalSize(100). You need to use the proportionalSize function here to make sure the player's x position is always proportional to the screen size.
+Inside the else if statement, assign the number -5 to the player's x velocity.
+
+# Step 49
+Add an else clause that assigns the number 0 to the player's x velocity.
+
+# Step 50
+The next step is to add the functionality that will be responsible for moving the player across the screen.
+Create a new arrow function called movePlayer that has three parameters called key, xVelocity, isPressed.
