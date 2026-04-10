@@ -254,8 +254,164 @@ Add an else if statement where the condition checks if the left key was pressed 
 Inside the else if statement, assign the number -5 to the player's x velocity.
 
 # Step 49
+
 Add an else clause that assigns the number 0 to the player's x velocity.
 
 # Step 50
+
 The next step is to add the functionality that will be responsible for moving the player across the screen.
 Create a new arrow function called movePlayer that has three parameters called key, xVelocity, isPressed.
+
+# Step 51
+
+In the game, the player will interact with different checkpoints. If the isCheckpointCollisionDetectionActive is false, then you will need to stop the player's movements on the x and y axes.
+Start by creating an if statement where the condition checks if the isCheckpointCollisionDetectionActive is false.
+Remember that you can use the ! operator to check if the variable is false.
+
+# Step 52
+
+Inside the if statement, set the player's x velocity to 0 and the player's y velocity to 0.
+Below that, add a return statement.
+
+# Step 53
+
+Below the if statement, create a switch statement with a value of key.
+
+# Step 54
+
+The first case you will want to add is when the left arrow key is pressed.
+Inside the switch statement, add a new case called "ArrowLeft".
+
+# Step 55
+
+Inside the case clause, assign isPressed to keys.leftKey.pressed.
+Below that, add an if statement that checks if xVelocity is equal to 0. If so, assign the xVelocity to player.velocity.x.
+
+# Step 56
+
+Below your if statement, use the subtraction assignment operator to subtract the xVelocity from player.velocity.x.
+To close out this case, make sure to add a break statement.
+
+# Step 57
+
+The player can jump up by using the up arrow key or the spacebar.
+Add three new cases for "ArrowUp", " ", and "Spacebar". Remember that you can group cases together when they share the same operation.
+Inside those cases, use the subtraction assignment operator to subtract 8 from player.velocity.y.
+To close out these cases, make sure to add a break statement.
+
+# Step 58
+
+The last case you will need to add will be for "ArrowRight".
+Inside that case, assign isPressed to keys.rightKey.pressed.
+Add an if statement that checks if xVelocity is equal to 0. If so, assign the xVelocity to player.velocity.x.
+Below that if statement, use the addition assignment operator to assign the xVelocity to player.velocity.x.
+
+# Step 59
+
+Now it is time to add the event listeners that will be responsible for calling the movePlayer function.
+Start by adding an addEventListener to the global window object.
+For the arguments, pass in the keydown event and an arrow function that uses the destructuring assignment to get the key property from the event object in the event listener parameter.
+Here is the syntax for using the destructuring assignment in the parameter list of the arrow function:
+btn.addEventListener('click', ({ target }) => {
+  console.log(target);
+});
+
+# Step 60
+
+Inside the arrow function, call the movePlayer function and pass in key, 8, and true as arguments.
+
+# Step 61
+
+Add another addEventListener to the global window object and pass in the keyup event and use destructuring to pass in the key property from the event.
+
+# Step 62
+
+Inside the callback function, call the movePlayer function and pass in key, 0, and false as arguments.
+
+# Step 63
+
+Before you can start moving your player across the screen, you will need to use the animate function.
+Inside the startGame function, delete player.draw() and call the animate function.
+Click the Start Game button and use the left and right arrow keys to move the player across the screen. You can also use the spacebar or the up arrow key to jump up.
+
+# Step 64
+
+The next step is to create the platforms and platform logic.
+Start by creating a new Platform class.
+
+# Step 65
+
+Inside the Platform class, create a constructor that takes in the x and y coordinates.
+
+# Step 66
+
+When working with objects where the property name and value are the same, you can use the shorthand property name syntax. This syntax allows you to omit the property value if it is the same as the property name.
+
+Example Code
+// using shorthand property name syntax
+obj = {
+  a, b, c
+}
+The following code is the same as:
+
+Example Code
+obj = {
+  a: a,
+  b: b,
+  c: c
+}
+Inside the constructor, add this.position and assign it an object with the x and y coordinates. Make sure to use the shorthand property syntax .
+
+# Step 67
+
+Next, add a width property to the constructor and assign it the number 200.
+Don't forget to use the this keyword to access the properties.
+
+# Step 68
+
+Below that, add a height property and assign it the number proportionalSize(40). You need to use the proportionalSize() function to make sure the height is proportional to the screen size.
+Remember to use the this keyword to access the properties.
+
+# Step 69
+
+Next, add a draw method to the Platform class.
+
+# Step 70
+
+Inside the draw method, assign "#acd157" to the ctx.fillStyle.
+Below that, call the ctx.fillRect method and pass in the x and y coordinates, along with the width and height properties. Remember to include this before each property.
+
+# Step 71
+
+The next step will be to create a list of positions for the platforms.
+Start by creating a new const variable called platformPositions and assign it an empty array.
+
+# Step 72
+
+Inside the platformPositions, you will need to add the list of positions for the platforms.
+Add a new object that has an x property with a value of 500 and a y property with a value of proportionalSize(450).
+
+# Step 73
+
+Below that, add another object with an x property with a value of 700 and a y property with a value of proportionalSize(400).
+
+# Step 74
+
+Add the rest of the platform positions to the platformPositions array with the following values:
+
+Example Code
+x=850  y=proportionalSize(350)
+x=900  y=proportionalSize(350)
+x=1050 y=proportionalSize(150)
+x=2500 y=proportionalSize(450)
+x=2900 y=proportionalSize(400)
+x=3150 y=proportionalSize(350)
+x=3900 y=proportionalSize(450)
+x=4200 y=proportionalSize(400)
+x=4400 y=proportionalSize(200)
+x=4700 y=proportionalSize(150)
+
+# Step 75
+
+The next step is to create a list of new platform instances using the Platform class. You will later reference this list to draw the platforms on the canvas.
+Start by creating a new const variable called platforms and assign it platformPositions.map().

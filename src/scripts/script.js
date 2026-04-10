@@ -53,7 +53,39 @@ class Player {
   }
 }
 
+
+class Platform {
+  constructor(x, y) {
+    this.position = {
+      x, y
+    };
+    this.width = 200;
+    this.height = proportionalSize(40);
+  }
+  draw() {
+    context.fillStyle = "#acd157";
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+}
+
 const player = new Player();
+
+const platformPositions = [
+  { x: 500, y: proportionalSize(450) },
+  { x: 700, y: proportionalSize(400) },
+  { x: 850, y: proportionalSize(350) },
+  { x: 900, y: proportionalSize(350) },
+  { x: 1050, y: proportionalSize(150) },
+  { x: 2500, y: proportionalSize(450) },
+  { x: 2900, y: proportionalSize(400) },
+  { x: 3150, y: proportionalSize(350) },
+  { x: 3900, y: proportionalSize(450) },
+  { x: 4200, y: proportionalSize(400) },
+  { x: 4400, y: proportionalSize(200) },
+  { x: 4700, y: proportionalSize(150) },
+
+];
+
 
 
 
@@ -82,13 +114,49 @@ const keys = {
 };
 
 const movePlayer = (key, xVelocity, isPressed) => {
-
+  if (!isCheckpointCollisionDetectionActive) {
+    player.velocity.x = 0;
+    player.velocity.y = 0;
+  }
+  switch (key) {
+    case "ArrowLeft":
+      keys.leftKey.pressed = isPressed;
+      if (xVelocity === 0) {
+        player.velocity.x = xVelocity;
+      }
+      player.velocity.x -= xVelocity;
+      break;
+    case "ArrowUp":
+    case " ":
+    case "Spacebar":
+      player.velocity.y -= 8;
+      break;
+    case "ArrowRight":
+      keys.rightKey.pressed = isPressed;
+      if (xVelocity === 0) {
+        player.velocity.x = xVelocity;
+      }
+      player.velocity.x += xVelocity;
+      break;
+    default:
+      break;
+  }
 };
+
+window.addEventListener("keydown", ({ key }) => {
+  movePlayer(key, 8, true);
+});
+
+window.addEventListener("keyup", ({ key }) => {
+  movePlayer(key, 0, false);
+});
+
 
 const startGame = () => {
   canvas.style.display = "block";
   startScreen.style.display = "none";
-  player.draw();
+  // player.draw();
+  animate();
 };
 startBtn.addEventListener("click", startGame);
 
